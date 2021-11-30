@@ -7,8 +7,7 @@ function Individual({ item, deleteItem, result }) {
         <>
             <TableRow
                 key={item.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component="th" scope="item">
                     {item.timein}
                 </TableCell>
