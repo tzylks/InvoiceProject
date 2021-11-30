@@ -16,7 +16,7 @@ function Individual({ item, deleteItem, result }) {
                 <TableCell align="right">{item.totalhours}</TableCell>
                 <TableCell align="right">{item.memo}</TableCell>
                 <TableCell align="right">
-                    <DeleteForeverIcon onClick={() => deleteItem(item.id)}/>
+                    <DeleteForeverIcon onClick={() => deleteItem(item.id)} />
                 </TableCell>
             </TableRow>
         </>

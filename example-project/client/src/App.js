@@ -5,9 +5,8 @@ import TextField from '@mui/material/TextField';
 import MyDocument from './component/MyDocument'
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { ThemeProvider } from '@mui/material/styles';
-import { useTheme, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-
 
 const darkTheme = {
   palette: {
@@ -21,7 +20,7 @@ const darkTheme = {
     background: {
       default: '#1f1f1f',
       paper: '#1f1f1f',
-      
+
     },
     error: {
       main: '#FF00C8',
@@ -35,7 +34,6 @@ const darkTheme = {
   }
 }
 const appliedTheme = createTheme(darkTheme);
-
 
 function App() {
   const [invoice, setInvoice] = useState([]);
@@ -105,65 +103,65 @@ function App() {
 
   return (
     <>
-    <ThemeProvider theme={appliedTheme}>
-      <CssBaseline />
-      <div style={{ position:'absolute', top: '15%', left: '15%', display: 'flex', flexDirection: 'row', columnGap: '10px' }}>
-        <div>
-          <h2 style={{color: '#A3F7BF'}}>Time-In</h2>
-          <TextField
-            type="time"
-            value={time}
-            onChange={e => setTime(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            inputProps={{
-              step: 300, // 5 min
-            }}
-            sx={{ width: 150 }}
-          />
+      <ThemeProvider theme={appliedTheme}>
+        <CssBaseline />
+        <div style={{ position: 'absolute', top: '15%', left: '15%', display: 'flex', flexDirection: 'row', columnGap: '10px' }}>
+          <div>
+            <h2 style={{ color: '#A3F7BF' }}>Time-In</h2>
+            <TextField
+              type="time"
+              value={time}
+              onChange={e => setTime(e.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, // 5 min
+              }}
+              sx={{ width: 150 }}
+            />
+          </div>
+          <div>
+            <h2 style={{ color: '#FF4848' }}>Time-Out</h2>
+            <TextField
+              type="time"
+              value={time2}
+              onChange={e => setTime2(e.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, // 5 min
+              }}
+              sx={{ width: 150 }}
+            />
+          </div>
+          <div>
+            <h2>Memo</h2>
+            <TextField
+              type="text"
+              value={memo}
+              onChange={e => setMemo(e.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              sx={{ width: 550, background: 'black' }}
+            />
+          </div>
+          <Button variant="outlined" onClick={submitTimes} sx={{ mt: 10, background: 'white' }}>Submit</Button>
         </div>
-        <div>
-          <h2 style={{color: '#FF4848'}}>Time-Out</h2>
-          <TextField
-            type="time"
-            value={time2}
-            onChange={e => setTime2(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            inputProps={{
-              step: 300, // 5 min
-            }}
-            sx={{ width: 150 }}
-          />
-        </div>
-        <div>
-          <h2>Memo</h2>
-          <TextField
-            type="text"
-            value={memo}
-            onChange={e => setMemo(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-            sx={{ width: 550, background: 'black' }}
-          />
-        </div>
-        <Button variant="outlined" onClick={submitTimes} sx={{ mt: 10, background: 'white' }}>Submit</Button>
-      </div>
 
-      <InvoiceEntry invoice={invoice} deleteItem={deleteItem} result={result} />
+        <InvoiceEntry invoice={invoice} deleteItem={deleteItem} result={result} />
 
-    <div style={{position: 'absolute', right: 700, top: 127}}>
-        <PDFDownloadLink document={<MyDocument invoice={invoice}/>} fileName="somename.pdf" style={{zIndex: '10000', textDecoration: 'none'}}>
-          {({ loading, blob }) =>
-            loading ? <h4 style={{textDecoration: 'none', color: 'white'}}>Loading</h4> : <h4 style={{textDecoration: 'none', color: 'red', zIndex: 100}}>Download PDF</h4>
-          }
-        </PDFDownloadLink>
-    </div>
-    
+        <div style={{ position: 'absolute', right: 700, top: 127 }}>
+          <PDFDownloadLink document={<MyDocument invoice={invoice} />} fileName="somename.pdf" style={{ zIndex: '10000', textDecoration: 'none' }}>
+            {({ loading, blob }) =>
+              loading ? <h4 style={{ textDecoration: 'none', color: 'white' }}>Loading</h4> : <h4 style={{ textDecoration: 'none', color: 'red', zIndex: 100 }}>Download PDF</h4>
+            }
+          </PDFDownloadLink>
+        </div>
+
       </ThemeProvider>
     </>
   );
