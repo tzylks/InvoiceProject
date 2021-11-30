@@ -2,18 +2,47 @@ import { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
 import InvoiceEntry from './component/IvoiceEntry'
 import TextField from '@mui/material/TextField';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import { PDFViewer } from '@react-pdf/renderer';
 import MyDocument from './component/MyDocument'
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { ThemeProvider } from '@mui/material/styles';
+import { useTheme, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 
+const darkTheme = {
+  palette: {
+    type: 'light',
+    primary: {
+      main: 'rgba(21,21,22,0.69)',
+    },
+    secondary: {
+      main: '#76ff03',
+    },
+    background: {
+      default: '#1f1f1f',
+      paper: '#1f1f1f',
+      
+    },
+    error: {
+      main: '#FF00C8',
+    },
+    text: {
+      primary: '#fff',
+    },
+    typography: {
+      fontFamily: 'Permanent Marker, cursive'
+    },
+  }
+}
+const appliedTheme = createTheme(darkTheme);
 
 
 function App() {
   const [invoice, setInvoice] = useState([]);
-  const [time, setTime] = useState("22:00")
-  const [time2, setTime2] = useState("21:00")
+  const [time, setTime] = useState("09:00")
+  const [time2, setTime2] = useState("17:00")
   const [memo, setMemo] = useState('')
+
 
   function strToMins(t) {
     const s = t.split(":");
@@ -35,8 +64,6 @@ function App() {
 
   const date1 = new Date(`${newDate} ${time}`);
   const date2 = new Date(`${newDate} ${time2}`);
-  console.log(date1);
-  console.log(date2);
 
 
   const submitTimes = (e) => {
@@ -54,7 +81,7 @@ function App() {
       },
       body: JSON.stringify(newData)
     })
-    
+
     setInvoice([...invoice, newData])
 
   }
@@ -76,14 +103,13 @@ function App() {
   const timeDiff = date1.getTime() - date2.getTime();
   let hoursConverted = timeDiff / 1000 / 60 / 60
 
-  
-
   return (
     <>
-      <InvoiceEntry invoice={invoice} deleteItem={deleteItem} result={result} />
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <ThemeProvider theme={appliedTheme}>
+      <CssBaseline />
+      <div style={{ position:'absolute', top: '15%', left: '15%', display: 'flex', flexDirection: 'row', columnGap: '10px' }}>
         <div>
-          <h2>Time-In</h2>
+          <h2 style={{color: '#A3F7BF'}}>Time-In</h2>
           <TextField
             type="time"
             value={time}
@@ -98,7 +124,7 @@ function App() {
           />
         </div>
         <div>
-          <h2>Time-Out</h2>
+          <h2 style={{color: '#FF4848'}}>Time-Out</h2>
           <TextField
             type="time"
             value={time2}
@@ -122,14 +148,23 @@ function App() {
               shrink: true,
             }}
             fullWidth
-            sx={{ width: 550 }}
+            sx={{ width: 550, background: 'black' }}
           />
         </div>
-        <Button variant="outlined" onClick={submitTimes}>Submit</Button>
+        <Button variant="outlined" onClick={submitTimes} sx={{ mt: 10, background: 'white' }}>Submit</Button>
       </div>
-      <PDFViewer height="500" width="600">
-        <MyDocument invoice={invoice} />
-      </PDFViewer>
+
+      <InvoiceEntry invoice={invoice} deleteItem={deleteItem} result={result} />
+
+    <div style={{position: 'absolute', right: 700, top: 127}}>
+        <PDFDownloadLink document={<MyDocument invoice={invoice}/>} fileName="somename.pdf" style={{zIndex: '10000', textDecoration: 'none'}}>
+          {({ loading, blob }) =>
+            loading ? <h4 style={{textDecoration: 'none', color: 'white'}}>Loading</h4> : <h4 style={{textDecoration: 'none', color: 'red', zIndex: 100}}>Download PDF</h4>
+          }
+        </PDFDownloadLink>
+    </div>
+    
+      </ThemeProvider>
     </>
   );
 }

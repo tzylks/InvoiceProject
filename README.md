@@ -111,3 +111,7 @@ $ npm i --prefix client
 ```console
 $ npm start --prefix client
 ```
+
+## ENDPOINT
+
+Once you have started the server, visit **localhost:3000/the_invoices**

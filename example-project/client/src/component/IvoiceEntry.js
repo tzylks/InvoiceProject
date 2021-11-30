@@ -18,8 +18,8 @@ function InvoiceEntry({ invoice, deleteItem, result }) {
 
     return (
         <>
-            <TableContainer component={Paper}>
-                <Table sx={{ width: '100%' }} aria-label="simple table">
+            <TableContainer component={Paper} style={{boxShadow: 'none'}}>
+                <Table sx={{ position:'absolute', top: '25%', left: '15%', marginTop: '5%', width: '70%', boxShadow: 'none', border: '1px solid white' }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Time In</TableCell>
