@@ -20,7 +20,6 @@ const darkTheme = {
     background: {
       default: '#1f1f1f',
       paper: '#1f1f1f',
-
     },
     error: {
       main: '#FF00C8',
@@ -40,7 +39,6 @@ function App() {
   const [time, setTime] = useState("09:00")
   const [time2, setTime2] = useState("17:00")
   const [memo, setMemo] = useState('')
-
 
   function strToMins(t) {
     const s = t.split(":");
@@ -62,7 +60,6 @@ function App() {
 
   const date1 = new Date(`${newDate} ${time}`);
   const date2 = new Date(`${newDate} ${time2}`);
-
 
   const submitTimes = (e) => {
     const newData = {
@@ -98,7 +95,7 @@ function App() {
     setInvoice(deletedItem)
   }
 
-  const timeDiff = date1.getTime() - date2.getTime();
+  const timeDiff = date2.getTime() - date1.getTime();
   let hoursConverted = timeDiff / 1000 / 60 / 60
 
   return (
