@@ -97,7 +97,7 @@ $ bundle install
 ```
 
 ```console
-$ rails db: migrate
+$ rails db:migrate
 ```
 
 ```console
